@@ -1,0 +1,30 @@
+{
+  "id": "07_missing_data",
+  "notes": "Sparse input — no revenue projections, no market data, vague assumptions. Agent must either ask_human for missing data or produce a BC with validation_warnings. Tests robustness when key financial inputs are absent.",
+  "input": {
+    "project_name": "New Product Line Launch",
+    "project_type": "CAPEX",
+    "sponsor": "Leo Chan",
+    "project_manager": "Mary Ho",
+    "business_unit": "Product",
+    "capex_hkd_millions": 4.0,
+    "description": "Launch a new product line targeting young professionals. We believe there is strong demand.",
+    "assumptions": {
+      "budget_hkd_millions": 4.0
+    },
+    "attachments": [],
+    "known_market_data": {}
+  },
+  "expected_clarifications": [
+    "What is the projected Year-1 revenue or unit sales volume?",
+    "What is the expected gross margin?",
+    "What is the target market segment and size?"
+  ],
+  "expected_warnings": [
+    "Missing or empty required section"
+  ],
+  "expected_sections_present": ["executive_summary", "project_description"],
+  "expected_kpi_count": 1,
+  "expected_hitl_triggered": true,
+  "hitl_trigger_reason": "No revenue, margin, or market data provided — agent cannot compute financials without asking"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "09_high_margin",
+  "notes": "Gross margin >50% (stated as 72%) triggers the 'margin_too_high' red flag. Agent must include explicit justification in the BC and validator must emit the warning. SaaS product with genuine high margins — justification is defensible but must be present.",
+  "input": {
+    "project_name": "ProcureCloud SaaS Platform Launch",
+    "project_type": "CAPEX",
+    "sponsor": "Patricia Hui, Chief Product Officer",
+    "project_manager": "Quinn Ng, Product Manager",
+    "business_unit": "Enterprise Software",
+    "capex_hkd_millions": 6.5,
+    "description": "Build and launch ProcureCloud, a cloud-native procurement management SaaS platform targeting mid-market enterprises in Hong Kong and Greater Bay Area. The platform automates purchase orders, supplier management, and spend analytics. Revenue model is subscription-based at HK$8,000/seat/year. Gross margin is high due to zero marginal cost of software delivery after initial development.",
+    "assumptions": {
+      "development_cost_hkd_millions": 4.0,
+      "cloud_infrastructure_setup_hkd_millions": 1.0,
+      "sales_and_marketing_launch_hkd_millions": 1.0,
+      "contingency_hkd_millions": 0.5,
+      "seats_year1": 500,
+      "seat_price_hkd_pa": 8000,
+      "seats_growth_pct_pa": 60,
+      "gross_margin_pct": 72,
+      "customer_acquisition_cost_hkd": 3200,
+      "annual_churn_pct": 8,
+      "hosting_cost_per_seat_hkd_pa": 480
+    },
+    "attachments": [],
+    "known_market_data": {
+      "hk_enterprise_saas_market_growth_pct": 26,
+      "procurement_saas_average_gross_margin_pct": 68,
+      "competitor_pricing_range_hkd_per_seat_pa": [6000, 12000]
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [
+    "Base-case gross margin exceeds 50% — extra justification required"
+  ],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 1,
+  "expected_red_flags": ["margin_too_high"],
+  "expected_irr_above_pct": 30
+}

@@ -1,0 +1,30 @@
+# Secrets and local env
+.env
+backend/.env
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local backups and logs (large / sensitive)
+backup.sql
+backup.dump
+errorlog

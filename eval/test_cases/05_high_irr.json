@@ -1,0 +1,43 @@
+{
+  "id": "05_high_irr",
+  "notes": "Designed to produce IRR >100%. Tiny CAPEX (HK$0.8M) for a software IP licensing deal with immediate large cash returns. Year-1 cashflow exceeds CAPEX. Validator must raise the 'irr_too_high' red flag and require extra justification.",
+  "input": {
+    "project_name": "Proprietary Fintech Algorithm Licensing",
+    "project_type": "Investment",
+    "sponsor": "Henry Tsui, Chief Investment Officer",
+    "project_manager": "Iris Mak, Business Development Manager",
+    "business_unit": "FinTech Ventures",
+    "capex_hkd_millions": 0.8,
+    "description": "License our proprietary credit-scoring algorithm to three Tier-1 banks in Southeast Asia under a 3-year exclusivity agreement. The licensing fee structure is HK$0.5M upfront per bank, then HK$0.3M per bank per year for years 2 and 3. Total investment is legal fees and integration support — no further capex. Zero marginal cost of delivery (pure IP).",
+    "assumptions": {
+      "legal_and_structuring_fees_hkd_millions": 0.5,
+      "integration_support_hkd_millions": 0.3,
+      "upfront_licensing_fee_per_bank_hkd_millions": 0.5,
+      "annual_licensing_fee_per_bank_hkd_millions": 0.3,
+      "number_of_banks": 3,
+      "contract_years": 3,
+      "renewal_probability_pct": 70,
+      "gross_margin_pct": 92
+    },
+    "attachments": [],
+    "known_market_data": {
+      "sea_fintech_licensing_market_growth_pct": 35,
+      "comparable_algorithm_licensing_deals_hkd_millions": 1.2
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [
+    "IRR exceeds 100% — extra justification required"
+  ],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 0,
+  "expected_irr_above_pct": 100,
+  "expected_red_flags": ["irr_too_high"],
+  "financial_sketch": {
+    "note": "cashflows = [-0.8, 1.5+0.9, 0.9, 0.9] → IRR well above 100%",
+    "year0": -0.8,
+    "year1": 1.5,
+    "year2": 0.9,
+    "year3": 0.9
+  }
+}

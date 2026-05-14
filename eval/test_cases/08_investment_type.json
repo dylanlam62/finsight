@@ -1,0 +1,38 @@
+{
+  "id": "08_investment_type",
+  "notes": "Investment project type. HK$15M into a logistics startup. Tests Investment-specific KPIs (portfolio return, AUM, Sharpe ratio). 3 KPI sets required (>10M). Full data, no warnings expected.",
+  "input": {
+    "project_name": "Series A Investment: SwiftRoute Logistics",
+    "project_type": "Investment",
+    "sponsor": "Nancy Poon, Head of Corporate Ventures",
+    "project_manager": "Oscar Leung, Investment Manager",
+    "business_unit": "Corporate Ventures",
+    "capex_hkd_millions": 15.0,
+    "description": "Lead a HK$15M Series A investment into SwiftRoute, a Hong Kong-based AI-powered last-mile logistics platform. SwiftRoute has demonstrated 3x YoY revenue growth, 40,000 monthly active delivery partners, and an NPS of 72. The investment will fund expansion into Singapore and Malaysia and engineering headcount growth.",
+    "assumptions": {
+      "investment_hkd_millions": 15.0,
+      "equity_stake_post_money_pct": 18,
+      "pre_money_valuation_hkd_millions": 68,
+      "expected_exit_multiple": 6,
+      "expected_exit_year": 5,
+      "revenue_at_exit_hkd_millions": 180,
+      "probability_of_exit_pct": 65,
+      "interim_dividend_hkd_millions_pa": 0,
+      "revenue_growth_pct_pa": 80,
+      "gross_margin_pct": 34
+    },
+    "attachments": [],
+    "known_market_data": {
+      "sea_logistics_market_size_usd_billions": 52,
+      "sea_logistics_growth_pct": 14,
+      "comparable_series_a_valuations_hkd_millions": [45, 72, 88],
+      "swiftroute_current_arr_hkd_millions": 12
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 3,
+  "expected_kpi_types": ["portfolio_return", "aum", "sharpe_ratio"],
+  "expected_irr_above_pct": 25
+}

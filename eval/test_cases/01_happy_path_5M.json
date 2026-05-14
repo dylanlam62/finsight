@@ -1,0 +1,37 @@
+{
+  "id": "01_happy_path_5M",
+  "notes": "Complete, well-formed input. HK$5M CAPEX retail expansion. Should pass with zero warnings, 1 KPI set, clean financials.",
+  "input": {
+    "project_name": "Causeway Bay Flagship Store Expansion",
+    "project_type": "CAPEX",
+    "sponsor": "Alice Wong, Chief Commercial Officer",
+    "project_manager": "Ben Lam, Senior Project Manager",
+    "business_unit": "Retail Operations",
+    "capex_hkd_millions": 5.0,
+    "description": "Expand the existing Causeway Bay store from 3,000 sq ft to 6,000 sq ft by taking over the adjacent unit. The expanded space will house a new premium product line and in-store experience zone to drive higher average basket size and foot traffic.",
+    "assumptions": {
+      "lease_term_years": 5,
+      "fit_out_cost_hkd_millions": 3.0,
+      "equipment_cost_hkd_millions": 1.5,
+      "contingency_hkd_millions": 0.5,
+      "revenue_year1_hkd_millions": 8.0,
+      "revenue_growth_pct_pa": 10,
+      "gross_margin_pct": 42,
+      "occupancy_cost_pct_of_revenue": 15,
+      "staff_cost_hkd_millions_pa": 1.2,
+      "opening_date": "Q3 2026"
+    },
+    "attachments": [],
+    "known_market_data": {
+      "hong_kong_retail_sales_growth_2025_pct": 4.5,
+      "luxury_retail_segment_growth_pct": 6.2,
+      "causeway_bay_foot_traffic_index": 98
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 1,
+  "expected_irr_above_pct": 15,
+  "expected_irr_below_pct": 80
+}

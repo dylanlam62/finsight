@@ -1,0 +1,34 @@
+{
+  "id": "03_contradictory_assumptions",
+  "notes": "Contradictory assumptions must trigger HITL. The description claims 'fastest-growing market segment' but assumptions set revenue_growth_pct_pa=0. Also: gross_margin_pct=65 contradicts 'highly competitive market with thin margins' in description. Agent must call ask_human to resolve before proceeding.",
+  "input": {
+    "project_name": "Tuen Mun Cold Chain Distribution Centre",
+    "project_type": "CAPEX",
+    "sponsor": "David Chan, CFO",
+    "project_manager": "Elaine Yip, Project Lead",
+    "business_unit": "Food & Beverage Distribution",
+    "capex_hkd_millions": 8.5,
+    "description": "Build a new cold chain distribution centre in Tuen Mun to capture demand from the fastest-growing fresh food e-commerce segment. The highly competitive market with thin margins means we must operate at maximum efficiency from Day 1. Revenue is expected to ramp slowly as we build customer relationships.",
+    "assumptions": {
+      "construction_cost_hkd_millions": 5.0,
+      "refrigeration_equipment_hkd_millions": 2.5,
+      "contingency_hkd_millions": 1.0,
+      "revenue_year1_hkd_millions": 6.0,
+      "revenue_growth_pct_pa": 0,
+      "gross_margin_pct": 65,
+      "staff_headcount": 40,
+      "energy_cost_hkd_millions_pa": 1.8
+    },
+    "attachments": [],
+    "known_market_data": {}
+  },
+  "expected_clarifications": [
+    "Revenue growth is stated as 0% but the description calls this the fastest-growing segment — please confirm the growth rate.",
+    "Gross margin of 65% contradicts the description of thin margins in a competitive market — please clarify."
+  ],
+  "expected_warnings": [],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 1,
+  "expected_hitl_triggered": true,
+  "hitl_trigger_reason": "revenue_growth=0 contradicts 'fastest-growing' description; margin=65% contradicts 'thin margins'"
+}

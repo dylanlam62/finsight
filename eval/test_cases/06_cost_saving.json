@@ -1,0 +1,36 @@
+{
+  "id": "06_cost_saving",
+  "notes": "CostSaving project type. HK$3.5M — requires 1 KPI set (cost savings, efficiency, FTE). Tests that kpi_generator returns CostSaving-specific KPIs, not revenue KPIs.",
+  "input": {
+    "project_name": "Back-Office RPA Automation Programme",
+    "project_type": "CostSaving",
+    "sponsor": "Janet Fong, Chief Operating Officer",
+    "project_manager": "Kevin Yuen, Digital Transformation Lead",
+    "business_unit": "Operations & Finance",
+    "capex_hkd_millions": 3.5,
+    "description": "Deploy Robotic Process Automation (RPA) across 6 back-office functions: accounts payable, reconciliation, HR onboarding, regulatory reporting, claims processing, and IT provisioning. Target is to eliminate 18 FTE-equivalent of manual effort, reduce error rates by 80%, and shorten processing cycle times by 60%.",
+    "assumptions": {
+      "software_licences_hkd_millions": 1.8,
+      "implementation_and_change_management_hkd_millions": 1.2,
+      "training_hkd_millions": 0.3,
+      "contingency_hkd_millions": 0.2,
+      "fte_eliminated": 18,
+      "avg_fully_loaded_cost_per_fte_hkd_pa": 420000,
+      "error_rework_cost_savings_hkd_millions_pa": 0.6,
+      "go_live_quarter": "Q2 2026",
+      "annual_maintenance_cost_hkd_millions": 0.3
+    },
+    "attachments": [],
+    "known_market_data": {
+      "rpa_market_growth_pct": 28,
+      "average_rpa_payback_years": 2.1,
+      "hk_avg_rpa_implementation_cost_hkd_per_bot": 180000
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 1,
+  "expected_kpi_types": ["cost_savings", "efficiency", "fte"],
+  "expected_irr_above_pct": 20
+}

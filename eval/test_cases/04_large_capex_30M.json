@@ -1,0 +1,43 @@
+{
+  "id": "04_large_capex_30M",
+  "notes": "HK$30M CAPEX — requires 3 KPI sets, failure_threshold=75%. Full data, no warnings expected. Tests large-project path end-to-end.",
+  "input": {
+    "project_name": "Tsuen Wan Data Centre Phase 2",
+    "project_type": "CAPEX",
+    "sponsor": "Francis Ng, Chief Technology Officer",
+    "project_manager": "Grace Lau, Programme Director",
+    "business_unit": "Technology Infrastructure",
+    "capex_hkd_millions": 30.0,
+    "description": "Construct a Tier III data centre in Tsuen Wan with 2 MW of IT load capacity, targeting colocation demand from financial services, healthcare, and public sector clients. Phase 2 doubles the capacity of the existing Phase 1 facility and introduces liquid cooling to reduce PUE to 1.35.",
+    "assumptions": {
+      "civil_and_building_works_hkd_millions": 12.0,
+      "mechanical_electrical_hkd_millions": 10.0,
+      "it_infrastructure_hkd_millions": 5.0,
+      "contingency_hkd_millions": 3.0,
+      "revenue_year1_hkd_millions": 18.0,
+      "revenue_growth_pct_pa": 20,
+      "gross_margin_pct": 38,
+      "power_cost_hkd_millions_pa": 4.2,
+      "staff_headcount": 25,
+      "avg_salary_hkd_pa": 480000,
+      "lease_term_years": 15,
+      "lease_cost_hkd_millions_pa": 3.6,
+      "target_utilisation_pct_year1": 60,
+      "target_utilisation_pct_year3": 90
+    },
+    "attachments": [],
+    "known_market_data": {
+      "hk_dc_colocation_market_size_hkd_billions": 4.2,
+      "hk_dc_market_growth_pct": 22,
+      "average_rack_rate_hkd_per_month": 8500,
+      "competitor_new_capacity_mw": 12
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 3,
+  "expected_irr_above_pct": 15,
+  "expected_irr_below_pct": 80,
+  "failure_threshold_pct": 75
+}

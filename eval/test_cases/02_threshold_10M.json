@@ -1,0 +1,39 @@
+{
+  "id": "02_threshold_10M",
+  "notes": "Exactly HK$10M CAPEX — tests the threshold boundary. required_kpi_sets(10) = 1 (>2M but NOT >10M). failure_threshold = 50%. Complete input, no warnings expected.",
+  "input": {
+    "project_name": "Kwun Tong Logistics Hub Phase 1",
+    "project_type": "CAPEX",
+    "sponsor": "Raymond Cheung, VP Operations",
+    "project_manager": "Cindy Ho, Operations Manager",
+    "business_unit": "Supply Chain",
+    "capex_hkd_millions": 10.0,
+    "description": "Establish a 15,000 sq ft last-mile logistics hub in Kwun Tong to serve the growing e-commerce fulfilment demand in Kowloon East. The hub will include automated sorting equipment, temperature-controlled zones for fresh groceries, and EV charging bays for a fleet of 20 delivery vans.",
+    "assumptions": {
+      "warehouse_fit_out_hkd_millions": 4.5,
+      "automation_equipment_hkd_millions": 3.8,
+      "ev_fleet_hkd_millions": 1.2,
+      "contingency_hkd_millions": 0.5,
+      "revenue_year1_hkd_millions": 12.0,
+      "revenue_growth_pct_pa": 15,
+      "gross_margin_pct": 28,
+      "staff_headcount": 35,
+      "avg_salary_hkd_pa": 240000,
+      "lease_term_years": 5,
+      "lease_cost_hkd_millions_pa": 2.4
+    },
+    "attachments": [],
+    "known_market_data": {
+      "hk_ecommerce_fulfilment_market_growth_pct": 18,
+      "last_mile_delivery_avg_cost_per_parcel_hkd": 32,
+      "competitor_hubs_in_kwun_tong": 2
+    }
+  },
+  "expected_clarifications": [],
+  "expected_warnings": [],
+  "expected_sections_present": ["all"],
+  "expected_kpi_count": 1,
+  "expected_irr_above_pct": 15,
+  "expected_irr_below_pct": 100,
+  "threshold_notes": "capex=10 → required_kpi_sets returns 1 (condition is >10M for 3, >2M for 1)"
+}

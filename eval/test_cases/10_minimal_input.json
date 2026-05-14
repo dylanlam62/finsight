@@ -1,0 +1,29 @@
+{
+  "id": "10_minimal_input",
+  "notes": "Absolute bare minimum — only required fields, no assumptions dict entries, no market data. Agent must ask multiple clarifying questions before it can produce any financial section. Tests HITL depth and graceful handling of near-empty input.",
+  "input": {
+    "project_name": "Office Relocation Project",
+    "project_type": "CAPEX",
+    "sponsor": "Richard Lam",
+    "project_manager": "Susan Chan",
+    "business_unit": "Administration",
+    "capex_hkd_millions": 2.5,
+    "description": "Relocate head office to a new building.",
+    "assumptions": {},
+    "attachments": [],
+    "known_market_data": {}
+  },
+  "expected_clarifications": [
+    "What is the target new office location and approximate size (sq ft)?",
+    "What are the fit-out and relocation cost components within the HK$2.5M budget?",
+    "Are there any cost savings expected from the relocation (e.g. lower rent, reduced utilities)?",
+    "What is the current lease termination date and any break clause or penalty?"
+  ],
+  "expected_warnings": [
+    "Missing or empty required section"
+  ],
+  "expected_sections_present": ["executive_summary", "project_description", "capex_breakdown"],
+  "expected_kpi_count": 1,
+  "expected_hitl_triggered": true,
+  "hitl_trigger_reason": "No assumptions provided — cannot estimate costs, savings, or financials without clarification"
+}

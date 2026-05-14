@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Lora:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-warm-50 text-warm-900 antialiased;
+    font-family: "DM Sans", system-ui, sans-serif;
+  }
+
+  /* Smooth scrollbars */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-warm-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-warm-400; }
+
+  /* Range input */
+  input[type="range"] { @apply accent-brand-500; }
+  input[type="checkbox"] { @apply accent-brand-500; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-warm-50 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-brand-500 text-white hover:bg-brand-600 shadow-sm;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-warm-800 hover:bg-warm-100 border border-warm-300 shadow-sm;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .card {
+    @apply rounded-xl border border-warm-200 bg-white p-5 shadow-sm;
+  }
+  .input {
+    @apply w-full rounded-lg border border-warm-300 bg-white px-3 py-2 text-sm text-warm-900 placeholder-warm-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/20 transition-colors;
+  }
+  .label {
+    @apply block text-xs font-medium uppercase tracking-widest text-warm-500 mb-1.5;
+  }
+  .tab {
+    @apply px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap;
+  }
+  .tab-active {
+    @apply tab border-brand-500 text-brand-600;
+  }
+  .tab-inactive {
+    @apply tab border-transparent text-warm-500 hover:text-warm-800 hover:border-warm-300;
+  }
+}
