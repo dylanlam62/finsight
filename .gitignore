@@ -23,8 +23,3 @@ frontend/dist/
 .DS_Store
 .idea/
 .vscode/
-
-# Local backups and logs (large / sensitive)
-backup.sql
-backup.dump
-errorlog
