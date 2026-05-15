@@ -15,7 +15,7 @@ class AgentRun(Base):
     input: Mapped[str] = mapped_column(Text, nullable=False)
     output: Mapped[str] = mapped_column(Text, default="")
     status: Mapped[str] = mapped_column(
-        Enum("running", "completed", "failed", name="run_status_enum"), default="running"
+        Enum("running", "completed", "failed", "interrupted", name="run_status_enum"), default="running"
     )
     steps: Mapped[list | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
