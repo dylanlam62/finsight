@@ -120,6 +120,7 @@ export default function RunView() {
         hitl: {
           question: event.question as string,
           options: (event.options as string[]) ?? [],
+          multi_fields: event.multi_fields as any[] | undefined,
           runId: event.run_id as string,
         },
       });
@@ -128,6 +129,27 @@ export default function RunView() {
 
     if (type === "error") {
       appendToLastAgent({ status: "error", content: event.message as string ?? "Unknown error" });
+      return;
+    }
+
+    if (type === "on_tool_stream") {
+      const content = event.content as string;
+      if (content) {
+        setMessages((prev) => {
+          const idx = [...prev].reverse().findIndex((m) => m.role === "agent");
+          if (idx === -1) return prev;
+          const realIdx = prev.length - 1 - idx;
+          const updated = [...prev];
+          const acts = [...updated[realIdx].activities];
+          const actIdx = [...acts].reverse().findIndex(a => a.status === "running");
+          if (actIdx !== -1) {
+            const realActIdx = acts.length - 1 - actIdx;
+            acts[realActIdx] = { ...acts[realActIdx], streamedText: (acts[realActIdx].streamedText || "") + content };
+          }
+          updated[realIdx] = { ...updated[realIdx], activities: acts };
+          return updated;
+        });
+      }
       return;
     }
 

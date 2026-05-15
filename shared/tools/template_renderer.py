@@ -117,8 +117,16 @@ def _kpis(c: dict) -> str:
 
 
 def _capex_breakdown(c: dict) -> str:
-    items = {k: v for k, v in c.items() if k != "total_hkd_millions"}
+    # Filter out anything that isn't a number to avoid "unsupported operand type" crashes
+    items = {k: v for k, v in c.items() if k != "total_hkd_millions" and isinstance(v, (int, float))}
+
     total = c.get("total_hkd_millions", sum(items.values()) if items else 0)
+
+    if not items:
+        # Fallback if the AI passed a list or unparseable format instead of key-value pairs
+        raw_val = c.get("total_hkd_millions", c.get("capex", "N/A"))
+        return f"## CAPEX Breakdown\n\nTotal CAPEX: HK${raw_val}M\n\n*(Detailed breakdown not provided)*\n"
+
     rows = "\n".join(f"| {k} | HK${v:.2f}M |" for k, v in items.items())
     return (
         f"## CAPEX Breakdown\n\n"
@@ -187,7 +195,7 @@ _RENDERERS = {
 
 
 @tool
-def template_renderer(section_name: str, content: dict) -> str:
+def template_renderer(section_name: str, content: Any = None) -> str:
     """Render a named business-case section to formatted markdown.
 
     Args:
@@ -204,4 +212,14 @@ def template_renderer(section_name: str, content: dict) -> str:
             f"[template_renderer] Unknown section '{section_name}'. "
             f"Available: {available}"
         )
-    return renderer(content)
+
+    if isinstance(content, str):
+        c = {"text": content, "narrative": content, "description": content, "summary": content, "items": [content]}
+    elif content is None:
+        c = {}
+    elif not isinstance(content, dict):
+        c = {"items": list(content)}
+    else:
+        c = content
+
+    return renderer(c)

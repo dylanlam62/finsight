@@ -70,10 +70,19 @@ def _make_event_stream(compiled, run_id: str, graph_input):
                 payload: dict = {"type": kind, "data": event}
 
                 if kind == "on_chat_model_stream":
+                    path = event.get("metadata", {}).get("langgraph_path", [])
                     chunk = event.get("data", {}).get("chunk", {})
                     content = getattr(chunk, "content", "") or ""
-                    if content:
-                        output_parts.append(content)
+
+                    if "tools" not in path:
+                        if content:
+                            output_parts.append(content)
+                        yield f"data: {json.dumps(payload, default=_sse_default)}\n\n"
+                    else:
+                        if content:
+                            tool_payload = {"type": "on_tool_stream", "content": content}
+                            yield f"data: {json.dumps(tool_payload)}\n\n"
+                    continue
 
                 if kind == "on_tool_start":
                     safe_data = json.loads(json.dumps(event.get("data", {}), default=_sse_default))
@@ -83,6 +92,7 @@ def _make_event_stream(compiled, run_id: str, graph_input):
                         hitl = {
                             "question": tool_input.get("question", ""),
                             "options": tool_input.get("options") or [],
+                            "multi_fields": tool_input.get("multi_fields") or [],
                         }
 
                 if kind == "on_tool_end":
@@ -113,6 +123,8 @@ def _make_event_stream(compiled, run_id: str, graph_input):
                         yield f"data: {json.dumps({'type': 'done', 'run_id': run_id})}\n\n"
 
         except Exception as exc:
+            import traceback
+            traceback.print_exc()
             async with async_session_factory() as db2:
                 run_record = await db2.get(AgentRun, run_id)
                 if run_record:

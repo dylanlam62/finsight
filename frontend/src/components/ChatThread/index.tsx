@@ -24,11 +24,19 @@ export interface Activity {
   status: "running" | "done";
   input?: unknown;
   output?: string;
+  streamedText?: string;
+}
+
+export interface MultiField {
+  id: string;
+  label: string;
+  options?: string[];
 }
 
 export interface HitlData {
   question: string;
   options: string[];
+  multi_fields?: MultiField[];
   runId: string;
 }
 
@@ -182,13 +190,20 @@ function ActivityFeed({ activities }: { activities: Activity[] }) {
       {open && (
         <div className="divide-y divide-warm-100">
           {activities.map((a) => (
-            <div key={a.id} className="flex items-start gap-2.5 px-3 py-2 bg-white">
-              {a.status === "running"
-                ? <Loader2 className="w-3 h-3 text-brand-400 mt-0.5 shrink-0 animate-spin" />
-                : <Check className="w-3 h-3 text-green-500 mt-0.5 shrink-0" />}
-              <span className={a.status === "running" ? "text-brand-600" : "text-warm-500"}>
-                {a.label}
-              </span>
+            <div key={a.id} className="flex flex-col gap-1.5 px-3 py-2 bg-white">
+              <div className="flex items-start gap-2.5">
+                {a.status === "running"
+                  ? <Loader2 className="w-3 h-3 text-brand-400 mt-0.5 shrink-0 animate-spin" />
+                  : <Check className="w-3 h-3 text-green-500 mt-0.5 shrink-0" />}
+                <span className={a.status === "running" ? "text-brand-600" : "text-warm-500"}>
+                  {a.label}
+                </span>
+              </div>
+              {a.streamedText && (
+                <div className="pl-6 text-warm-600">
+                  <Markdown content={a.streamedText} />
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -202,6 +217,10 @@ function ActivityFeed({ activities }: { activities: Activity[] }) {
 // ---------------------------------------------------------------------------
 
 function HitlCard({ hitl, onSubmit }: { hitl: HitlData; onSubmit: (runId: string, answer: string) => void }) {
+  if (hitl.multi_fields && hitl.multi_fields.length > 0) {
+    return <HitlMultiTabCard hitl={hitl} onSubmit={onSubmit} />;
+  }
+
   const [selected, setSelected] = useState<string | null>(null);
   const [freeText, setFreeText] = useState("");
 
@@ -263,6 +282,111 @@ function HitlCard({ hitl, onSubmit }: { hitl: HitlData; onSubmit: (runId: string
         >
           Submit
         </button>
+      </div>
+    </div>
+  );
+}
+
+function HitlMultiTabCard({ hitl, onSubmit }: { hitl: HitlData; onSubmit: (runId: string, answer: string) => void }) {
+  const fields = hitl.multi_fields || [];
+  const [activeTab, setActiveTab] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, { selected: string | null; freeText: string }>>(() => {
+    const init: any = {};
+    fields.forEach(f => init[f.id] = { selected: null, freeText: "" });
+    return init;
+  });
+
+  function updateAnswer(id: string, selected: string | null, freeText: string) {
+    setAnswers(prev => ({ ...prev, [id]: { selected, freeText } }));
+  }
+
+  function submit() {
+    const finalAnswers = fields.map(f => {
+      const ans = answers[f.id];
+      return `${f.label}: ${(ans.selected ?? ans.freeText.trim()) || 'Not provided'}`;
+    }).join("\n");
+    onSubmit(hitl.runId, finalAnswers);
+  }
+
+  const currentField = fields[activeTab];
+  const currentAns = answers[currentField.id];
+  const allAnswered = fields.every(f => answers[f.id].selected || answers[f.id].freeText.trim());
+
+  return (
+    <div className="mb-3 border border-amber-200 rounded-xl overflow-hidden bg-amber-50 shadow-sm">
+      <div className="flex items-start gap-3 px-4 pt-4 pb-3">
+        <div className="w-6 h-6 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+          <Sparkles className="w-3 h-3 text-amber-600" />
+        </div>
+        <div>
+          <p className="text-xs font-semibold text-amber-700 mb-1 uppercase tracking-wide">Input needed</p>
+          <p className="text-sm text-warm-800 leading-relaxed">{hitl.question}</p>
+        </div>
+      </div>
+
+      <div className="border-b border-amber-200 flex overflow-x-auto">
+        {fields.map((f, idx) => (
+          <button
+            key={f.id}
+            onClick={() => setActiveTab(idx)}
+            className={`px-4 py-2 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${
+              activeTab === idx ? "border-amber-600 text-amber-800 bg-amber-100/50" : "border-transparent text-warm-600 hover:text-warm-800 hover:bg-amber-100/30"
+            }`}
+          >
+            {f.label} {(answers[f.id].selected || answers[f.id].freeText.trim()) && <Check className="w-3 h-3 inline text-green-600 ml-1" />}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-4 bg-white">
+        {currentField.options && currentField.options.length > 0 && (
+          <div className="pb-4 flex flex-wrap gap-2">
+            {currentField.options.map((opt, idx) => (
+              <button
+                key={idx}
+                onClick={() => updateAnswer(currentField.id, opt, "")}
+                className={`text-xs rounded-lg border px-3 py-1.5 transition-all font-medium ${
+                  currentAns.selected === opt
+                    ? "border-brand-400 bg-brand-50 text-brand-700 shadow-sm"
+                    : "border-warm-300 bg-white text-warm-700 hover:border-warm-400 hover:bg-warm-50"
+                }`}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="flex gap-2 items-end">
+          <div className="flex-1">
+            <p className="text-xs text-warm-400 mb-1">Custom answer:</p>
+            <textarea
+              className="input w-full resize-none text-sm bg-warm-50 focus:bg-white"
+              rows={2}
+              placeholder={`Type answer for ${currentField.label}…`}
+              value={currentAns.selected ? "" : currentAns.freeText}
+              onChange={(e) => updateAnswer(currentField.id, null, e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="px-4 py-3 bg-amber-50 border-t border-amber-200 flex justify-between items-center">
+        <div className="text-xs text-warm-500">
+          Step {activeTab + 1} of {fields.length}
+        </div>
+        <div className="flex gap-2">
+          {activeTab < fields.length - 1 ? (
+            <button className="btn-secondary text-sm px-4" onClick={() => setActiveTab(a => a + 1)}>Next</button>
+          ) : (
+            <button
+              className="btn-primary text-sm px-4"
+              onClick={submit}
+              disabled={!allAnswered}
+            >
+              Submit All
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
