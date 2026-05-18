@@ -63,7 +63,7 @@ def _make_event_stream(compiled, run_id: str, graph_input):
         try:
             async for event in compiled.astream_events(
                 graph_input,
-                config={"configurable": {"thread_id": run_id}},
+                config={"configurable": {"thread_id": run_id}, "recursion_limit": 150},
                 version="v2",
             ):
                 kind = event.get("event", "")

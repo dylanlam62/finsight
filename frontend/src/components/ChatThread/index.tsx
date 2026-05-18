@@ -200,8 +200,10 @@ function ActivityFeed({ activities }: { activities: Activity[] }) {
                 </span>
               </div>
               {a.streamedText && (
-                <div className="pl-6 text-warm-600">
-                  <Markdown content={a.streamedText} />
+                <div className="pl-6 pb-2 text-warm-600">
+                  <pre className="text-xs whitespace-pre-wrap font-sans text-warm-600 leading-relaxed bg-warm-50 p-3 rounded-lg border border-warm-100">
+                    {a.streamedText}
+                  </pre>
                 </div>
               )}
             </div>
